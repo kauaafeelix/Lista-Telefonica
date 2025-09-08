@@ -111,7 +111,46 @@ public class Main {
             Utils.exibirContatos(contatos);
     }
     public static void atualizarContato(){
-        System.out.println("-----Atualização de Contato-----\n");
+        System.out.println("------------ Atualização de Contato ------------\n");
+        List<Contato> contatos = new ArrayList<>();
+        var contatoDao = new ContatoDAO();
+        try{
+            contatos = contatoDao.listarContatos();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Utils.exibirContatos(contatos);
+        System.out.println("\nDigite o ID do Contato que deseja atualizar: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Digite o novo nome do seu contato: ");
+        String novoNome = sc.nextLine();
+        System.out.println("Digite o novo telefone do seu contato: ");
+        String novoTelefone = sc.nextLine();
+        System.out.println("Digite o novo email do seu contato: ");
+        String novoEmail = sc.nextLine();
+        System.out.println("Digite a nova observação: ");
+        String novaObservacao = sc.nextLine();
+        try{
+            contatoDao.atualizarContato(novoNome,novoTelefone, novoEmail, novaObservacao, id);
+            Thread.sleep(500);
+            System.out.print("Contato ");
+            System.out.print(" ");
+            Thread.sleep(500);
+            System.out.print("Atualizado");
+            System.out.print(" ");
+            Thread.sleep(500);
+            System.out.print("com");
+            System.out.print(" ");
+            Thread.sleep(500);
+            System.out.println("Sucesso!");
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro no banco de dados!");
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
