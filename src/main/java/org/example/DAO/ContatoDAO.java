@@ -68,11 +68,15 @@ public class ContatoDAO {
         return contatos;
     }
 
-    public void ataulizarContato(int id) throws SQLException{
-        String query = "UPDATE contato SET telefone, email, observacoes WHERE id = ?";
+    public void atualizarContato (String novoNome,String novoTelefone, String novoEmail, String novaObservacao, int id) throws SQLException{
+        String query = "UPDATE contato SET nome = ?, telefone = ?, email = ?, observacao = ? WHERE id = ?";
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(query)){
-            stmt.setInt(1, id);
+            stmt.setString(1,novoNome);
+            stmt.setString(2, novoTelefone);
+            stmt.setString(3, novoEmail);
+            stmt.setString(4, novaObservacao);
+            stmt.setInt(5, id);
             stmt.executeUpdate();
         }
     }
