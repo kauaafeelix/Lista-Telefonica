@@ -48,6 +48,10 @@ public class Main {
                 atualizarContato();
                 break;
             }
+            case 5:{
+                deletarContato();
+                break;
+            }
             case 6:{
                 encerrando();
                 sair = true;
@@ -154,6 +158,28 @@ public class Main {
         }
 
 
+    }
+        public static void deletarContato(){
+            System.out.println("\n------- Remover Contato -------");
+            List<Contato> contatos = new ArrayList<>();
+            var contatoDao = new ContatoDAO();
+            try{
+                contatos = contatoDao.listarContatos();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            Utils.exibirContatos(contatos);
+            System.out.println("\n Digite o ID do contato que deseja remover: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+
+            try{
+                contatoDao.removerContato(id);
+                System.out.println("Contato removido com sucesso!");
+            } catch (SQLException e){
+                e.printStackTrace();
+                System.out.println("Erro no Banco de Dados!");
+            }
     }
     public static void encerrando() {
         try {
